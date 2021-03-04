@@ -181,10 +181,15 @@ export default {
           this.product.url = this.url;
           this.product.images = this.images;
           this.product.submittedBy = User.current();
-          const thumbnail = await utils.thumbnailify(this.images[0].url());
-          const parseFile = new this.$parse.File('thumb.webp', thumbnail);
-          await parseFile.save();
-          this.product.thumbnail = parseFile;
+          try {
+            const thumbnail = await utils.thumbnailify(this.images[0].url());
+            const parseFile = new this.$parse.File('thumb.webp', thumbnail);
+            await parseFile.save();
+            this.product.thumbnail = parseFile;
+          } catch (e) {
+            // different user already set the thumbnail
+            console.error(e);
+          }
           this.product.save()
             .then(() => {
               this.editing = false;
