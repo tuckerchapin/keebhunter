@@ -1,0 +1,307 @@
+[
+  {
+    "label": "60%",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Split",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Split right shift",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "ANSI",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Big ass enter",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "ISO",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Split backspace",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "HHKB",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Tsangan",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "WKL",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "TKL",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "104-key",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "65%",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Arrow cluster",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Alice-like",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Programmable",
+    "category": "Firmware",
+    "description": ""
+  },
+  {
+    "label": "QMK",
+    "category": "Firmware",
+    "description": ""
+  },
+  {
+    "label": "VIA",
+    "category": "Firmware",
+    "description": ""
+  },
+  {
+    "label": "BootMapper Client (Winkeyless)",
+    "category": "Firmware",
+    "description": ""
+  },
+  {
+    "label": "Custom",
+    "category": "Firmware",
+    "description": ""
+  },
+  {
+    "label": "6u spacebar",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Split spacebar",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Ortholinear",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "40%",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "6u spacebar",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "7u spacebar",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "6.25u spacebar",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Non-standard",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "75%",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "85%",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "RGB",
+    "category": "Lighting",
+    "description": ""
+  },
+  {
+    "label": "Per-key lighting",
+    "category": "Lighting",
+    "description": ""
+  },
+  {
+    "label": "Backlit",
+    "category": "Lighting",
+    "description": ""
+  },
+  {
+    "label": "Underglow",
+    "category": "Lighting",
+    "description": ""
+  },
+  {
+    "label": "Indicator LED",
+    "category": "Lighting",
+    "description": ""
+  },
+  {
+    "label": "Stepped caps lock",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "USB-C",
+    "category": "Connectivity",
+    "description": ""
+  },
+  {
+    "label": "USB Mini",
+    "category": "Connectivity",
+    "description": ""
+  },
+  {
+    "label": "Bluetooth",
+    "category": "Connectivity",
+    "description": ""
+  },
+  {
+    "label": "MX",
+    "category": "Switch",
+    "description": ""
+  },
+  {
+    "label": "Hotswap",
+    "category": "Switch",
+    "description": ""
+  },
+  {
+    "label": "Soldered",
+    "category": "Switch",
+    "description": ""
+  },
+  {
+    "label": "Low-profile",
+    "category": "Switch",
+    "description": ""
+  },
+  {
+    "label": "Alps",
+    "category": "Switch",
+    "description": ""
+  },
+  {
+    "label": "Topre",
+    "category": "Switch",
+    "description": ""
+  },
+  {
+    "label": "Is PCB",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Is case",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Is kit",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Includes keycaps",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Includes switches",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Includes stabs",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Includes cable",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Includes pcb",
+    "category": "Package",
+    "description": ""
+  },
+  {
+    "label": "Rotary encoder",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Fixed layout",
+    "category": "Layout",
+    "description": ""
+  },
+  {
+    "label": "Tray",
+    "category": "Mount",
+    "description": ""
+  },
+  {
+    "label": "Top ",
+    "category": "Mount",
+    "description": ""
+  },
+  {
+    "label": "Bottom",
+    "category": "Mount",
+    "description": ""
+  },
+  {
+    "label": "Sandwich",
+    "category": "Mount",
+    "description": ""
+  },
+  {
+    "label": "Gasket",
+    "category": "Mount",
+    "description": ""
+  },
+  {
+    "label": "Plateless",
+    "category": "Mount",
+    "description": ""
+  }
+]
