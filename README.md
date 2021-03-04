@@ -2,27 +2,25 @@
 
 ## TODO
 ### Polish
-- Loading states
-- Handle >100 tags better (right now just fetching 200 to be safe)
-  - add a "tag popularity" metric powered by a cloud job
-    - `Tag.popularity` = `Query(Products).contains('tags', Tag).count()`
-  - `<TagList>` only shows maybe the top 5 tags per category
-    - potential click to "show more" and get the next 5?
-  - fetch tags for product results / product page
-  - any tags entered into the `<TagInput>` should be included in the `<TagList>` if they aren't already
-- Move `utils.thumbnailify` (and possibly `utils.compress`) server-side
+- Loading states #1
+- Handle >100 tags better (right now just fetching 200 to be safe) #2
+- Move `utils.thumbnailify` (and possibly `utils.compress`) server-side #3
 - Product editing/submitting experience
   - Handle saving failures more gracefully
   - Add failure states for image upload
   - Drag and drop to reorder doesn't work on mobile
   - Some more general styling improvements
-- Lack of flex `gap` support on iOS and Safari for `<TagInput>`
+- Lack of flex `gap` support on iOS and Safari for `<TagInput>` #4
 
 ### Feature Roadmap
 - Sorting option on search
   - by popularity, recency, relevance (# of tags overlapping), etc.
-- Add original price/MSRP field?
+- Continuous-value tags
+  - Original price/MSRP
+  - Actuation force
+  - Search bounds to support these
 - Ratings?
+- NOT filters to exclude specific tags in searches
 
 ## Development
 ```
