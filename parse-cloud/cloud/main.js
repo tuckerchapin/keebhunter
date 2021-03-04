@@ -118,7 +118,7 @@ Parse.Cloud.define('search', async (request) => {
   query.exists('name')
     .include('tags')
     .descending('updatedAt')
-    .limit(15) // PAGE_LENGTH
+    .limit(12) // PAGE_LENGTH
     .skip(skip)
     .withCount();
   const results = await query.find();
