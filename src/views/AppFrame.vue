@@ -17,7 +17,7 @@ export default {
     const footerContent = () => (
       <div class="footer">
         <div class="footer-text">
-          <p>All images are property of their respective owners. Products listed are user-submited. A listing here is not an endorsement. Groub buys are inherently risky. Do your research.</p>
+          <p>All images are property of their respective owners. Products listed are user-submited. A listing here is not an endorsement. Group buys are inherently risky. Do your research.</p>
 
           <p>Love with your heart, use your head for everything else.</p>
         </div>
