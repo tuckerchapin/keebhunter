@@ -102,7 +102,7 @@ export default {
             const productQuery = new this.$parse.Query(Product);
             productQuery.include('tags');
             this.product = await productQuery.get(this.id);
-            document.title = `Keebhunter - ${this.product.name}`;
+            document.title = `${this.product.name} - Keebhunter`;
             this.tags = this.product.tags;
             this.name = this.product.name;
             this.url = this.product.url;
