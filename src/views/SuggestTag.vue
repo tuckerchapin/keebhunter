@@ -129,6 +129,7 @@ export default {
   grid-template-columns: 1fr;
   grid-auto-rows: min-content;
   row-gap: 20px;
+  min-height: 100%;
 }
 
 @media (min-width: 800px) {

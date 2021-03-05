@@ -218,7 +218,7 @@ export default {
             </div>
           ) : (
             <div class="no-results">
-              <div>No results</div>
+              No results
             </div>
           )}
         </div>
@@ -269,12 +269,10 @@ export default {
 }
 
 .no-results {
-  height: 100%;
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
-  justify-content: center;
-  align-items: center;
+  user-select: none;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .loading .results-table,
@@ -285,6 +283,7 @@ export default {
 
 .load-button {
   justify-self: center;
-  margin: 20px 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 </style>

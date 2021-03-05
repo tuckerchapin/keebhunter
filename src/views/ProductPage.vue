@@ -385,7 +385,7 @@ export default {
   }
 
 .delete-button {
-  margin-top: 80px;
+  margin-top: 20px;
   width: 100%;
 }
 

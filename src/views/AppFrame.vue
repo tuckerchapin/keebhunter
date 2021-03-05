@@ -150,8 +150,19 @@ export default {
   justify-items: center;
   column-gap: 20px;
   row-gap: 20px;
-  margin: 20px 20px 0;
+  /* margin: 0 20px; */
+  /* margins seem to collapse oddly when top margin is set here */
+  margin-top: 20px;
 }
+
+  /* .left .footer {
+    margin-top: 10px;
+  }
+
+  .main .footer {
+    margin: 0;
+    margin-top: 10px;
+  } */
 
 .footer-user {
   grid-area: user;
@@ -209,11 +220,6 @@ export default {
       "topbar"
       "main";
     grid-template-columns: auto;
-  }
-
-  .footer {
-    margin: 0;
-    margin-top: 10px;
   }
 
   .left {

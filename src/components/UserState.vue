@@ -234,13 +234,19 @@ export default {
   .no-user-container {
     grid-template-areas:
       "userinput passinput login register";
-    grid-template-columns: 1fr 1fr var(--button-width) var(--button-width);
+    grid-template-columns: repeat(2, 1fr) repeat(2, var(--button-width));
   }
 }
 
 @media (min-width: 1000px) {
   .no-user-container {
     grid-template-columns: 1fr var(--button-width);
+  }
+
+  .one-column .no-user-container {
+    grid-template-areas:
+      "userinput passinput login register";
+    grid-template-columns: repeat(2, minmax(1fr, 200px)) repeat(2, var(--button-width));
   }
 }
 </style>
