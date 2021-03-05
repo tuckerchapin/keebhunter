@@ -213,6 +213,7 @@ export default {
 
   .footer {
     margin: 0;
+    margin-top: 10px;
   }
 
   .left {
