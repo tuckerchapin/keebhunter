@@ -211,6 +211,11 @@ export default {
     grid-template-columns: auto;
   }
 
+  .footer {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .left {
     display: none;
   }
