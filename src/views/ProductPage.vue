@@ -189,6 +189,7 @@ export default {
             this.product.thumbnail = parseFile;
           } catch (e) {
             // different user already set the thumbnail
+            // eslint-disable-next-line no-console
             console.error(e);
           }
           this.product.save()
