@@ -1,5 +1,4 @@
 <script>
-import { mapState } from 'vuex';
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 import UserState from '@/components/UserState.vue';
@@ -7,19 +6,11 @@ import UserState from '@/components/UserState.vue';
 export default {
   name: 'AppFrame',
 
-  computed: {
-    ...mapState([
-      'loggedIn',
-    ]),
-  },
-
   render() {
     const footerContent = () => (
       <div class="footer">
-        <div class="footer-text">
-          <p>All images are property of their respective owners. Products listed are user-submited. A listing here is not an endorsement. Group buys are inherently risky. Do your research.</p>
-
-          <p>Love with your heart, use your head for everything else.</p>
+        <div class="footer-user">
+          <UserState/>
         </div>
         <a
           class="gh-link"
@@ -43,13 +34,17 @@ export default {
             <path d="m68.184 63.637c-4.1484 5.5195-10.75 9.0898-18.184 9.0898-12.551 0-22.727-10.176-22.727-22.727s10.176-22.727 22.727-22.727c7.4336 0 14.035 3.5703 18.184 9.0898v-9.0898h4.543v36.363c0 5.0078 4.5117 7.8789 9.7812 6.4492 6.3516-1.7266 10.84-8.7539 10.676-20.086 0-23.848-19.336-43.184-43.184-43.184s-43.184 19.336-43.184 43.184 19.336 43.184 43.184 43.184c9.3672 0 18.277-2.9883 25.648-8.4414l2.7031 3.6562c-8.1484 6.0234-18.004 9.3281-28.352 9.3281-26.359 0-47.727-21.367-47.727-47.727s21.367-47.727 47.727-47.727 47.727 21.367 47.727 47.695c0.19531 13.242-5.5195 22.191-14.027 24.504-7.9844 2.168-15.516-2.6211-15.516-10.836zm-18.184 4.5469c10.043 0 18.184-8.1406 18.184-18.184s-8.1406-18.184-18.184-18.184-18.184 8.1406-18.184 18.184 8.1406 18.184 18.184 18.184z"/>
           </svg>
         </a>
+        <div class="footer-text">
+          <p>All images are property of their respective owners. Products listed are user-submited. A listing here is not an endorsement. Group buys are inherently risky. Do your research.</p>
+
+          <p>Love with your heart, use your head for everything else.</p>
+        </div>
       </div>
     );
     return (
       <div class={{
         container: true,
         'one-column': !this.$slots.left,
-        'logged-out': !this.loggedIn,
       }}>
         <Header class="header" onClick={() => this.$emit('click')}/>
         <div class="topbar">
@@ -73,7 +68,6 @@ export default {
               onClick={() => this.$router.push({ name: 'suggest-tag' })}
             />
           </div>
-          <UserState/>
         </div>
         <div class="left">
           {this.$slots.left}
@@ -104,10 +98,9 @@ export default {
 
   .container.one-column {
     grid-template-areas:
-      "header"
-      "topbar"
-      "main";
-    grid-template-columns: auto;
+      "header topbar"
+      "main main";
+    grid-template-columns: min-content 2fr;
   }
 
   .container.one-column .left {
@@ -127,23 +120,16 @@ export default {
   align-items: center;
 }
 
-  .logged-out .topbar {
-    grid-template-columns: 1fr;
-  }
-
 .submit-buttons {
   display: grid;
   grid-template-columns: min-content min-content;
   column-gap: 20px;
+  row-gap: 10px;
 }
 
 .submit-button {
   white-space: nowrap;
 }
-
-  .logged-out .submit-button {
-    display: none;
-  }
 
 .left {
   grid-area: lefty;
@@ -156,15 +142,23 @@ export default {
 .footer {
   display: grid;
   grid-template-areas:
+    "user user"
     "gh email"
     "texty texty";
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   justify-items: center;
   column-gap: 20px;
-  padding: 20px 20px 0;
+  row-gap: 20px;
   margin: 20px 20px 0;
+}
+
+.footer-user {
+  grid-area: user;
+  border-bottom: 1px solid var(--footer__border);
   border-top: 1px solid var(--footer__border);
+  padding: 20px;
+  width: calc(100% - 40px);
 }
 
 .footer-text {
@@ -172,7 +166,13 @@ export default {
   color: var(--footer__text);
   text-align: center;
   font-size: .8em;
+  padding: 0 20px;
+  width: calc(100% - 40px);
 }
+
+  .footer-text > p {
+    margin-top: 0;
+  }
 
 .gh-link {
   grid-area: gh;
@@ -201,14 +201,9 @@ export default {
 
 <!-- media queries -->
 <style scoped>
-@media (max-width: 800px) {
-  .container:not(.logged-out) .submit-button:last-child {
-    display: none;
-  }
-}
-
 @media (max-width: 1000px) {
-  .container {
+  .container,
+  .container.one-column {
     grid-template-areas:
       "header"
       "topbar"
@@ -222,7 +217,7 @@ export default {
 }
 
 @media (min-width: 1000px) {
-  .main .footer {
+  .container:not(.one-column) .main .footer {
     display: none;
   }
 }

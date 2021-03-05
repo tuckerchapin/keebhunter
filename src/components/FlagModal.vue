@@ -57,10 +57,13 @@ export default {
   methods: {
     save() {
       this.disableSubmit = true;
-      const flag = new Flag(this.product, User.current());
+      const flag = new Flag(this.product);
       flag.reason = this.reason;
       flag.category = this.category;
       flag.tags = this.tags;
+      if (User.current()) {
+        User.current();
+      }
       flag.save().then(() => this.$emit('close'));
     },
   },

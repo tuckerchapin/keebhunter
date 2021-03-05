@@ -28,7 +28,6 @@ export default {
 
   computed: {
     ...mapState([
-      'loggedIn',
       'isAdmin',
     ]),
 
@@ -180,7 +179,9 @@ export default {
           this.product.tags = this.tags;
           this.product.url = this.url;
           this.product.images = this.images;
-          this.product.submittedBy = User.current();
+          if (User.current()) {
+            this.product.submittedBy = User.current();
+          }
           try {
             const thumbnail = await utils.thumbnailify(this.images[0].url());
             const parseFile = new this.$parse.File('thumb.webp', thumbnail);
@@ -292,7 +293,7 @@ export default {
             <Button
               class={{
                 'flag-button': true,
-                hide: !(this.loggedIn && !this.editing && !this.isPrivileged),
+                hide: this.editing || this.isPrivileged,
               }}
               onClick={this.handleFlag}
               label="Flag"

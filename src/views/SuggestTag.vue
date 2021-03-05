@@ -53,7 +53,9 @@ export default {
         const tag = new Tag();
         tag.label = this.label;
         tag.category = this.category;
-        tag.submittedBy = User.current();
+        if (User.current()) {
+          tag.submittedBy = User.current();
+        }
         await tag.save()
           .then(() => {
             this.label = '';

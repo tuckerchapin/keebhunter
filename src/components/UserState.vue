@@ -150,12 +150,12 @@ export default {
 <style scoped>
 .no-user-container,
 .user-container {
+  width: 100%;
   --button-width: 80px;
   display: grid;
-  height: 100%;
-  column-gap: 5px;
-  row-gap: 5px;
-  justify-content: right;
+  grid-auto-rows: min-content;
+  column-gap: 10px;
+  row-gap: 10px;
   align-items: center;
   align-content: center;
 }
@@ -170,19 +170,15 @@ export default {
   grid-template-areas:
     "userinput register"
     "passinput login";
-  grid-template-columns: min-content var(--button-width);
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr var(--button-width);
   align-items: flex-end;
 }
 
 .user-container {
   grid-template-areas:
     "username logout";
-  grid-template-columns: min-content var(--button-width);
-  grid-template-rows: min-content;
+  grid-template-columns: 1fr var(--button-width);
   align-items: center;
-  justify-items: right;
-  text-align: right;
   user-select: none;
 }
 
@@ -234,16 +230,17 @@ export default {
   grid-area: passinput;
 }
 
-@media (max-width: 1000px) {
+@media (min-width: 600px) and (max-width: 1000px) {
   .no-user-container {
     grid-template-areas:
       "userinput passinput login register";
-    grid-template-columns: repeat(2, 1fr) repeat(2, min-content);
-    grid-template-rows: min-content;
+    grid-template-columns: 1fr 1fr var(--button-width) var(--button-width);
   }
+}
 
-  .username {
-    display: none;
+@media (min-width: 1000px) {
+  .no-user-container {
+    grid-template-columns: 1fr var(--button-width);
   }
 }
 </style>

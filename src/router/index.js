@@ -19,13 +19,13 @@ const routes = [
     path: '/suggest-tag',
     name: 'suggest-tag',
     component: SuggestTag,
-    meta: { authRequired: true },
+    // meta: { authRequired: true },
   },
   {
     path: '/submit',
     name: 'submit',
     component: ProductPage,
-    meta: { authRequired: true },
+    // meta: { authRequired: true },
   },
   {
     path: '/:id',

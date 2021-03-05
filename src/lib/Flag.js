@@ -1,9 +1,12 @@
 import Parse from 'parse';
 
 export default class Flag extends Parse.Object {
-  constructor(product, user) {
+  constructor(product) {
     super('Flag');
     this.set('flaggedProduct', product);
+  }
+
+  set creator(user) {
     this.set('creator', user);
   }
 
