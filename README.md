@@ -18,9 +18,15 @@
 - Continuous-value tags
   - Original price/MSRP
   - Actuation force
+  - Key count (useful for macropads)
   - Search bounds to support these
 - Ratings?
 - NOT filters to exclude specific tags in searches
+- Linked tags
+  - e.g., filtering on layout:arrowcluster would include layout:65%, layout:tkl, and layout:1800
+- Related/variants
+  - e.g., Drop ALT High-Profile variantOf Drop ALT and vice-versa
+  - Could also allow for creating a listing from a template with pre-filled tags
 
 ## Development
 ```
