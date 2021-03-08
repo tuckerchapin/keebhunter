@@ -67,10 +67,11 @@ Parse.Cloud.afterSave('Products', async (request) => {
     return 0;
   });
   request.object.set('tags', tags);
+  if (request.object.dirty()) {
+    request.object.save(null, { useMasterKey: true });
+  }
 
   // create and set thumbnail based on first image
-
-  request.object.save(null, { useMasterKey: true });
 });
 
 // TAGS
@@ -81,8 +82,11 @@ Parse.Cloud.beforeSave('Tags', async (request) => {
   }
 });
 Parse.Cloud.afterSave('Tags', (request) => {
-  request.object.set('searchable_label', sanitizeForSearch(request.object.get('label')));
-  request.object.save(null, { useMasterKey: true });
+  const searchableLabel = sanitizeForSearch(request.object.get('label'));
+  if (searchableLabel !== request.object.get('searchable_label')) {
+    request.object.set('searchable_label', searchableLabel);
+    request.object.save(null, { useMasterKey: true });
+  }
 });
 
 Parse.Cloud.beforeSave(Parse.User, (request) => {
