@@ -11,6 +11,7 @@
   - Drag and drop to reorder doesn't work on mobile
   - Some more general styling improvements
 - Lack of flex `gap` support on iOS and Safari for `<TagInput>` [#4](/../../issues/4)
+- Change role detection, add flags to user objects rather than Role queries
 
 ### Feature Roadmap
 - Sorting option on search

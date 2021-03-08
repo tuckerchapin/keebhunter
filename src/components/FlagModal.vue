@@ -7,6 +7,7 @@ const FLAG_CATEGORIES = [
   'Missing tags',
   'Incorrect tags',
   'Inaccurate information',
+  'Broken/dead link',
   'Inappropriate content',
   'Other',
 ];
@@ -42,15 +43,15 @@ export default {
     tagInputPlaceholder() {
       if (this.tags.length === 0) {
         if (this.categoryIndex === 0) {
-          return 'Enter the missing tags (Optional)';
+          return 'Enter the missing tags';
         }
-        return 'Enter the incorrect tags (Optional)';
+        return 'Enter the incorrect tags';
       }
       return 'Add tags...';
     },
 
     submitDisabled() {
-      return this.disablSubmit || this.categoryIndex === -1;
+      return this.disablSubmit || this.categoryIndex === -1 || ((this.categoryIndex === 0 || this.categoryIndex === 1) && this.tags.length === 0);
     },
   },
 
@@ -89,7 +90,6 @@ export default {
           <TagInput
             class={{
               'flag-tags': true,
-              // eslint-disable-next-line eqeqeq
               hide: this.categoryIndex !== 0 && this.categoryIndex !== 1,
             }}
             placeholder={this.tagInputPlaceholder}
@@ -97,11 +97,14 @@ export default {
             onChange={(tags) => { this.tags = tags; }}
           />
           <textarea
-            class="reason-input"
+            class={{
+              'reason-input': true,
+              hide: this.categoryIndex === 0 || this.categoryIndex === 1,
+            }}
             value={this.reason}
             onInput={(e) => { this.reason = e.target.value; }}
             rows={3}
-            placeholder="Description of the issue (Optional)"
+            placeholder="Description of the issue"
             inputmode="text"
           />
           <Button
@@ -120,6 +123,7 @@ export default {
   background-color: var(--modal__background) !important;
   border-radius: 10px !important;
   height: auto !important;
+  overflow: visible !important;
 }
 </style>
 

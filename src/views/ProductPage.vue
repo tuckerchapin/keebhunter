@@ -182,15 +182,17 @@ export default {
           if (User.current()) {
             this.product.submittedBy = User.current();
           }
-          try {
-            const thumbnail = await utils.thumbnailify(this.images[0].url());
-            const parseFile = new this.$parse.File('thumb.webp', thumbnail);
-            await parseFile.save();
-            this.product.thumbnail = parseFile;
-          } catch (e) {
-            // different user already set the thumbnail
-            // eslint-disable-next-line no-console
-            console.error(e);
+          if (!this.product.thumbnail) {
+            try {
+              const thumbnail = await utils.thumbnailify(this.images[0].url());
+              const parseFile = new this.$parse.File('thumb.webp', thumbnail);
+              await parseFile.save();
+              this.product.thumbnail = parseFile;
+            } catch (e) {
+              // different user already set the thumbnail
+              // eslint-disable-next-line no-console
+              console.error(e);
+            }
           }
           this.product.save()
             .then(() => {

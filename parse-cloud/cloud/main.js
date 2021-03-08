@@ -39,9 +39,15 @@ Parse.Cloud.beforeSave('Products', async (request) => {
     throw new Error('There needs to be at least one image');
   }
 
-  const isPrivileged = await isPrivilegedRequest(request);
-  if (!isPrivileged) {
-    request.object.set('approved', false);
+  if (request.object.get('approved')) {
+    if (request.user) {
+      const isPrivileged = await isPrivilegedRequest(request);
+      if (!isPrivileged) {
+        request.object.set('approved', false);
+      }
+    } else {
+      request.object.set('approved', false);
+    }
   }
 });
 Parse.Cloud.afterSave('Products', async (request) => {
@@ -76,9 +82,15 @@ Parse.Cloud.afterSave('Products', async (request) => {
 
 // TAGS
 Parse.Cloud.beforeSave('Tags', async (request) => {
-  const isPrivileged = await isPrivilegedRequest(request);
-  if (!isPrivileged) {
-    request.object.set('approved', false);
+  if (request.object.get('approved')) {
+    if (request.user) {
+      const isPrivileged = await isPrivilegedRequest(request);
+      if (!isPrivileged) {
+        request.object.set('approved', false);
+      }
+    } else {
+      request.object.set('approved', false);
+    }
   }
 });
 Parse.Cloud.afterSave('Tags', (request) => {
@@ -108,10 +120,14 @@ Parse.Cloud.define('search', async (request) => {
 
   const query = new Parse.Query('Products');
 
-  const isPrivileged = await isPrivilegedRequest(request);
-  if (isPrivileged && onlyUnapproved) {
-    query.equalTo('approved', false);
-  } else if (!isPrivileged) {
+  if (request.user) {
+    if (onlyUnapproved) {
+      const isPrivileged = await isPrivilegedRequest(request);
+      if (isPrivileged) {
+        query.equalTo('approved', false);
+      }
+    }
+  } else {
     query.equalTo('approved', true);
   }
 
