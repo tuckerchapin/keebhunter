@@ -28,7 +28,6 @@ export default {
     ]),
 
     ...mapGetters([
-      'allTagsByCategory',
       'isPrivileged',
     ]),
 

@@ -162,7 +162,28 @@ Parse.Cloud.define('tagHint', async (request) => {
   return [];
 });
 
-Parse.Cloud.define('randomTagline', async (request) => {
+Parse.Cloud.define('popularTagsByCategory', async (request) => {
+  if (request.params.category) {
+    const query = new Parse.Query('Tags');
+    query.equalTo('category', request.params.category)
+      .descending('popularity');
+    return query.find();
+  }
+
+  const query = new Parse.Query('Tags');
+  const categories = await query.distinct('category');
+  return Promise.all(categories.map(async (category) => {
+    const tagQuery = new Parse.Query('Tags');
+    tagQuery.equalTo('category', category)
+      .descending('popularity')
+      .withCount()
+      .limit(5);
+    const { count, results } = await tagQuery.find();
+    return { category, total: count, tags: results };
+  }));
+});
+
+Parse.Cloud.define('randomTagline', async () => {
   const taglineQuery = new Parse.Query('Tagline');
   const count = await taglineQuery.count();
   const randInt = Math.floor(Math.random() * count);
@@ -171,7 +192,7 @@ Parse.Cloud.define('randomTagline', async (request) => {
   return tagline.get('tagline');
 });
 
-Parse.Cloud.job('tagPopularity', async (request) => {
+Parse.Cloud.job('tagPopularity', async () => {
   const tagQuery = new Parse.Query('Tags');
   tagQuery.limit(200);
   const tags = await tagQuery.find();

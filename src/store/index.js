@@ -4,7 +4,6 @@ import Parse from 'parse';
 import router from '@/router';
 import {
   User,
-  Tag,
   KeyboardArt,
 } from '@/lib';
 
@@ -21,20 +20,17 @@ export default new Vuex.Store({
   },
 
   getters: {
-    allTagsByCategory: (state) => state.tags.reduce((acc, cur) => {
-      if (!(cur.category in acc)) {
-        acc[cur.category] = [];
-      }
-      acc[cur.category].push(cur);
-      return acc;
-    }, {}),
-
     isPrivileged: (state) => state.isAdmin || state.isMod,
   },
 
   mutations: {
-    setTags(state, { tags }) {
-      state.tags = tags;
+    setTags(state, { category, tags }) {
+      if (category) {
+        const index = state.tags.findIndex((tagCategory) => tagCategory.category === category);
+        Vue.set(state.tags[index], 'tags', tags);
+      } else {
+        state.tags = tags;
+      }
     },
 
     setTagline(state, { tagline }) {
@@ -97,12 +93,15 @@ export default new Vuex.Store({
         .finally(() => { if (router.currentRoute.name !== 'search') router.push({ name: 'search' }); });
     },
 
-    async getAllTags({ commit }) {
-      const tagQuery = new Parse.Query(Tag);
-      tagQuery.equalTo('approved', true);
-      tagQuery.limit(200);
-      const tags = await tagQuery.find();
+    async getInitialTags({ commit }) {
+      const tags = await Parse.Cloud.run('popularTagsByCategory');
       commit('setTags', { tags });
+      return tags;
+    },
+
+    async getMoreTags({ commit }, { category }) {
+      const tags = await Parse.Cloud.run('popularTagsByCategory', { category });
+      commit('setTags', { category, tags });
       return tags;
     },
 
@@ -126,7 +125,7 @@ export default new Vuex.Store({
     },
 
     async hydrate({ dispatch }) {
-      dispatch('getAllTags');
+      dispatch('getInitialTags');
       dispatch('getTagline');
       // dispatch('getKeyboardArt');
       dispatch('syncUserState');
