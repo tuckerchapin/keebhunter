@@ -3,7 +3,6 @@
 ## TODO
 ### Polish
 - Loading states [#1](/../../issues/1)
-- Handle >100 tags better (right now just fetching 200 to be safe) [#2](/../../issues/2)
 - Move `utils.thumbnailify` (and possibly `utils.compress`) server-side [#3](/../../issues/3)
 - Product editing/submitting experience
   - Handle saving failures more gracefully
