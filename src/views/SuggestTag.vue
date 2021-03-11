@@ -1,5 +1,5 @@
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import { User, Tag } from '@/lib';
 import AppFrame from '@/views/AppFrame.vue';
 import Button from '@/components/Button.vue';
@@ -21,12 +21,11 @@ export default {
   computed: {
     ...mapState([
       'isAdmin',
+      'tags',
     ]),
 
-    ...mapGetters(['allTagsByCategory']),
-
     categories() {
-      return Object.keys(this.allTagsByCategory).sort();
+      return this.tags.map((x) => x.category).sort();
     },
 
     category() {
