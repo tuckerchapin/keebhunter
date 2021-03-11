@@ -43,7 +43,7 @@ Parse.Cloud.beforeSave('Products', async (request) => {
     if (request.user) {
       const isPrivileged = await isPrivilegedRequest(request);
       if (!isPrivileged) {
-        request.object.set('approved', false);
+        request.object.set('approved', true);
       }
     } else {
       request.object.set('approved', false);
@@ -86,7 +86,7 @@ Parse.Cloud.beforeSave('Tags', async (request) => {
     if (request.user) {
       const isPrivileged = await isPrivilegedRequest(request);
       if (!isPrivileged) {
-        request.object.set('approved', false);
+        request.object.set('approved', true);
       }
     } else {
       request.object.set('approved', false);
