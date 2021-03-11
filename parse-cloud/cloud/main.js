@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-const isPrivilegedRequest = async (request) => {
+const isPrivilegedRequest = (request) => {
   if (request.master) {
     return true;
   }
@@ -9,11 +9,7 @@ const isPrivilegedRequest = async (request) => {
     return false;
   }
 
-  const query = new Parse.Query(Parse.Role);
-  query.equalTo('users', request.user);
-  const roles = await query.find();
-  const names = roles.map((role) => role.get('name'));
-  return names.includes('admin');
+  return request.user.get('isAdmin');
 };
 
 // eslint-disable-next-line no-irregular-whitespace
@@ -40,12 +36,7 @@ Parse.Cloud.beforeSave('Products', async (request) => {
   }
 
   if (request.object.get('approved')) {
-    if (request.user || request.master) {
-      const isPrivileged = await isPrivilegedRequest(request);
-      if (!isPrivileged) {
-        request.object.set('approved', false);
-      }
-    } else {
+    if (!isPrivilegedRequest(request)) {
       request.object.set('approved', false);
     }
   }
@@ -83,12 +74,7 @@ Parse.Cloud.afterSave('Products', async (request) => {
 // TAGS
 Parse.Cloud.beforeSave('Tags', async (request) => {
   if (request.object.get('approved')) {
-    if (request.user || request.master) {
-      const isPrivileged = await isPrivilegedRequest(request);
-      if (!isPrivileged) {
-        request.object.set('approved', false);
-      }
-    } else {
+    if (!isPrivilegedRequest(request)) {
       request.object.set('approved', false);
     }
   }
@@ -102,14 +88,16 @@ Parse.Cloud.afterSave('Tags', (request) => {
 });
 
 Parse.Cloud.beforeSave(Parse.User, (request) => {
-  const minUsernameLength = 6;
-  const minPasswordLength = 8;
-  if (!request.object.get('username') || request.object.get('username').length < minUsernameLength) {
-    throw new Error(`Username must be more than ${minUsernameLength} characters`);
-  }
+  if (request.object.isNew()) {
+    const minUsernameLength = 6;
+    const minPasswordLength = 8;
+    if (!request.object.get('username') || request.object.get('username').length < minUsernameLength) {
+      throw new Error(`Username must be more than ${minUsernameLength} characters`);
+    }
 
-  if (!request.object.get('password') || request.object.get('password').length < minPasswordLength) {
-    throw new Error(`Password must be more than ${minPasswordLength} characters`);
+    if (!request.object.get('password') || request.object.get('password').length < minPasswordLength) {
+      throw new Error(`Password must be more than ${minPasswordLength} characters`);
+    }
   }
 });
 
@@ -120,13 +108,8 @@ Parse.Cloud.define('search', async (request) => {
 
   const query = new Parse.Query('Products');
 
-  if (request.user) {
-    if (onlyUnapproved) {
-      const isPrivileged = await isPrivilegedRequest(request);
-      if (isPrivileged) {
-        query.equalTo('approved', false);
-      }
-    }
+  if (onlyUnapproved && isPrivilegedRequest(request)) {
+    query.equalTo('approved', false);
   } else {
     query.equalTo('approved', true);
   }
