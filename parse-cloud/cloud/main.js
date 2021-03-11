@@ -40,10 +40,10 @@ Parse.Cloud.beforeSave('Products', async (request) => {
   }
 
   if (request.object.get('approved')) {
-    if (request.user) {
+    if (request.user || request.master) {
       const isPrivileged = await isPrivilegedRequest(request);
       if (!isPrivileged) {
-        request.object.set('approved', true);
+        request.object.set('approved', false);
       }
     } else {
       request.object.set('approved', false);
@@ -83,10 +83,10 @@ Parse.Cloud.afterSave('Products', async (request) => {
 // TAGS
 Parse.Cloud.beforeSave('Tags', async (request) => {
   if (request.object.get('approved')) {
-    if (request.user) {
+    if (request.user || request.master) {
       const isPrivileged = await isPrivilegedRequest(request);
       if (!isPrivileged) {
-        request.object.set('approved', true);
+        request.object.set('approved', false);
       }
     } else {
       request.object.set('approved', false);
@@ -169,4 +169,17 @@ Parse.Cloud.define('randomTagline', async (request) => {
   taglineQuery.skip(randInt);
   const tagline = await taglineQuery.first();
   return tagline.get('tagline');
+});
+
+Parse.Cloud.job('tagPopularity', async (request) => {
+  const tagQuery = new Parse.Query('Tags');
+  tagQuery.limit(200);
+  const tags = await tagQuery.find();
+  return tags.map(async (tag) => {
+    const query = new Parse.Query('Products');
+    query.containsAll('tags', [tag]);
+    const count = await query.count();
+    tag.set('popularity', count);
+    return tag.save(null, { useMasterKey: true });
+  });
 });
