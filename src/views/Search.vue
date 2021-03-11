@@ -57,46 +57,54 @@ export default {
     loggedIn() {
       this.getResults(true);
     },
+
+    // eslint-disable-next-line object-shorthand
+    async '$route.query.q'() {
+      await this.parseQuery();
+    },
   },
 
   async created() {
     // try to parse a query from the url
-    if ('q' in this.$route.query) {
-      try {
-        // parse and dedupe
-        const queryTagIds = [...new Set(this.$route.query.q.split(URL_QUERY_JOINER).filter((queryTagId) => queryTagId))];
-
-        // get tags
-        const test = await Promise.all(queryTagIds.map((tagId) => {
-          const tagQuery = new this.$parse.Query(Tag);
-          return tagQuery.get(tagId);
-        }));
-
-        this.queryTags = test;
-      } catch (e) {
-        // likely a malformed query string, do nothing
-        // eslint-disable-next-line no-console
-        console.error(e);
-      }
-    }
-
+    await this.parseQuery();
     // initialize
     this.update();
   },
 
   methods: {
+    async parseQuery() {
+      if ('q' in this.$route.query) {
+        try {
+          // parse and dedupe
+          const queryTagIds = [...new Set(this.$route.query.q.split(URL_QUERY_JOINER).filter((queryTagId) => queryTagId))];
+          // get tags
+          const test = await Promise.all(queryTagIds.map((tagId) => {
+            const tagQuery = new this.$parse.Query(Tag);
+            return tagQuery.get(tagId);
+          }));
+          this.queryTags = test;
+        } catch (e) {
+          // likely a malformed query string, do nothing
+          // eslint-disable-next-line no-console
+          console.error(e);
+        }
+      } else {
+        this.queryTags = [];
+      }
+    },
+
     update() {
       // propagate change to url query
       const queryString = this.queryTags.map((tag) => tag.id).join(URL_QUERY_JOINER);
       if ((this.$route.query.q || '') !== queryString) {
         // only replace if they are different
         if (this.queryTags.length > 0) {
-          this.$router.replace({ query: { q: queryString } });
+          this.$router.push({ query: { q: queryString } });
         } else {
-          this.$router.replace({ query: {} });
+          this.$router.push({ query: {} });
         }
       } else if ('q' in this.$route.query && !this.$route.query.q) {
-        this.$router.replace({ query: {} });
+        this.$router.push({ query: {} });
       }
 
       this.getResults(true);
