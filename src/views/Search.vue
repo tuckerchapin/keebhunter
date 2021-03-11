@@ -91,9 +91,9 @@ export default {
       if ((this.$route.query.q || '') !== queryString) {
         // only replace if they are different
         if (this.queryTags.length > 0) {
-          this.$router.replace({ query: { q: queryString } });
+          this.$router.push({ query: { q: queryString } });
         } else {
-          this.$router.replace({ query: {} });
+          this.$router.push({ query: {} });
         }
       } else if ('q' in this.$route.query && !this.$route.query.q) {
         this.$router.replace({ query: {} });
