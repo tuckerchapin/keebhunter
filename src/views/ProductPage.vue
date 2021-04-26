@@ -124,6 +124,29 @@ export default {
         }
       },
     },
+
+    name: {
+      immediate: true,
+      handler() {
+        if (this.name) {
+          const metaTitle = `${this.name} - Keebhunter`;
+          document.title = metaTitle;
+          document.head.querySelector('meta[property="og:title"]').content = metaTitle;
+          document.head.querySelector('meta[property="twitter:title"]').content = metaTitle;
+        }
+      },
+    },
+
+    images: {
+      immediate: true,
+      handler() {
+        if (this.images && this.images.length > 0) {
+          const metaImage = this.images[0].url();
+          document.head.querySelector('meta[property="og:image"]').content = metaImage;
+          document.head.querySelector('meta[property="twitter:image"]').content = metaImage;
+        }
+      },
+    },
   },
 
   methods: {

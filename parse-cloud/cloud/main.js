@@ -101,6 +101,7 @@ Parse.Cloud.beforeSave(Parse.User, (request) => {
   }
 });
 
+// FUNCTIONS
 Parse.Cloud.define('search', async (request) => {
   // params: tags: [Tags.id], skip: number, onlyUnapproved: bool?
   // return: count: number, results: [Products]
@@ -175,6 +176,7 @@ Parse.Cloud.define('randomTagline', async () => {
   return tagline.get('tagline');
 });
 
+// JOBS
 Parse.Cloud.job('tagPopularity', async () => {
   const tagQuery = new Parse.Query('Tags');
   tagQuery.limit(200);
