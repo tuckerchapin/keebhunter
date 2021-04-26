@@ -98,9 +98,9 @@ export default {
   }
 
   .button:active:not(:disabled) {
-    background-color: var(--button-active-background);
-    border-color: var(--button-active-border);
-    color: var(--button-active-color);
+    background-color: var(--button-hover-background);
+    border-color: var(--button-hover-border);
+    color: var(--button-hover-color);
     filter: brightness(.8);
   }
 
